@@ -32,7 +32,7 @@ public class App {
         System.out.println("Задача 8");
         productBasket.printBasketContent();
         System.out.println("Задача 9");
-        System.out.println("Полная стоимость продуктов в корзине ссоставляет "+ productBasket.calculateFullPriceBasket());
+        System.out.println("Полная стоимость продуктов в корзине составляет "+ productBasket.calculateFullPriceBasket());
         System.out.println("Задача 10");
         productName = "Манго";
         productBasket.printResultSearch(productBasket.searchProduct(productName));
