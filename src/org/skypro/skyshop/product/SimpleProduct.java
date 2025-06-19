@@ -7,6 +7,9 @@ public class SimpleProduct extends Product{
     public SimpleProduct(String nameOfProduct, int priceOfProduct) {
         super(nameOfProduct);
         this.priceOfProduct = priceOfProduct;
+        if (priceOfProduct <= 0) {
+            throw new IllegalArgumentException("Цены должна быть выше одного рубля");
+        }
     }
 
     @Override

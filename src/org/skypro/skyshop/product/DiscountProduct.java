@@ -9,6 +9,12 @@ public class DiscountProduct extends Product {
         super(nameOfProduct);
         this.basePrice = basePrice;
         this.discountInPercents = discountInPercents;
+        if (basePrice <= 0) {
+            throw new IllegalArgumentException("Цены должна быть выше одного рубля");
+        }
+        if (discountInPercents < 0 || discountInPercents > 100) {
+            throw new IllegalArgumentException("Процент должен быть числом в диапазоне от 0 до 100 включительно");
+        }
     }
 
     @Override
