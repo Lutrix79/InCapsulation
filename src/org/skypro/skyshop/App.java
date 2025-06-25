@@ -79,12 +79,30 @@ public class App {
         try {
             testSearchEngineMaxMatchesInSearch();
         } catch (Exception e) {
-            System.out.println(e.getMessage());;
+            System.out.println(e.getMessage());
         }
+        productBasket.delimiter();
+
+        System.out.println("Проверка Списков");
+        productBasket.initBasket();
+        product = new SimpleProduct("Мандарины", 150);
+        productBasket.addProductInBasket(product);
+        product = new SimpleProduct("Мандарины", 170);
+        productBasket.addProductInBasket(product);
+        System.out.println("Первая и вторая задача");
+        System.out.println("Список удаленных продуктов " + productBasket.searchAndDeleteProducts("Мандарины"));
+        System.out.println("Третья задача");
+        productBasket.printBasketContent();
+        System.out.println("Четвёртая, пятая задача");
+        System.out.println("Список пуст " + productBasket.searchAndDeleteProducts("Мандарины"));
+        System.out.println("Шестая задача");
+        productBasket.printBasketContent();
+
+        System.out.println("Проверка searchEngine выполнилась выше");
     }
 
-    private static void testSearchEngineMaxMatchesInSearch() throws BestResultNotFound, BestResultNotFound {
-        SearchEngine searchEngineMaxMatchesInSearch = new SearchEngine(15);
+    private static void testSearchEngineMaxMatchesInSearch() throws BestResultNotFound {
+        SearchEngine searchEngineMaxMatchesInSearch = new SearchEngine();
         searchEngineMaxMatchesInSearch.add(new SimpleProduct("МангоМангоМанго", 80));
         searchEngineMaxMatchesInSearch.add(new SimpleProduct("МангоМангоЯблоки", 90));
         searchEngineMaxMatchesInSearch.add(new SimpleProduct("МангоЯблокиЯблоки", 100));
@@ -102,7 +120,7 @@ public class App {
     }
 
     private static void testSearchEngineException() {
-        SearchEngine searchEngineExceptions = new SearchEngine(15);
+        SearchEngine searchEngineExceptions = new SearchEngine();
         //Сначала заполняем продукты c ненорамальными значениями, и проверяем вызовы исключений с ненормальными значениями, по очереди закоменчивая строку
         try {
             searchEngineExceptions.add(new SimpleProduct("  ", 85));
@@ -117,7 +135,7 @@ public class App {
 
     private static void testSearchEngine() {
 
-        SearchEngine searchEngines = new SearchEngine(20);
+        SearchEngine searchEngines = new SearchEngine();
 
         searchEngines.add(new SimpleProduct("Яблоки", 85));
         searchEngines.add(new DiscountProduct("Груши", 100, 15));
@@ -133,15 +151,15 @@ public class App {
         searchEngines.add(new Article("О ПОЛЬЗЕ ПЕРСИКОВ", "Для сердечно-сосудистой системы. Антиоксиданты и минеральные вещества нормализуют кровяное давление, восстанавливают тонус стенок сосудов."));
         searchEngines.add(new Article("О ПОЛЬЗЕ МАНГО", "Повышение иммунитета. Высокое содержание витамина С усиливает эффективность лейкоцитов — белых клеток крови, которые повышают защитную функцию организма."));
 
-        System.out.println(Arrays.toString(searchEngines.search("Яблок")));
+        System.out.println(searchEngines.search("Яблок"));
         productBasket.delimiter();
-        System.out.println(Arrays.toString(searchEngines.search("Ньютон")));
+        System.out.println(searchEngines.search("Ньютон"));
         productBasket.delimiter();
-        System.out.println(Arrays.toString(searchEngines.search("ПОЛЬЗЕ")));
+        System.out.println(searchEngines.search("ПОЛЬЗЕ"));
         productBasket.delimiter();
-        System.out.println(Arrays.toString(searchEngines.search("adfgaehjjrsyj")));
+        System.out.println(searchEngines.search("adfgaehjjrsyj"));
         productBasket.delimiter();
-        System.out.println(Arrays.toString(searchEngines.search("Манго")));
+        System.out.println(searchEngines.search("Манго"));
         productBasket.delimiter();
     }
 }
