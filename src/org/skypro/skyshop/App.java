@@ -6,8 +6,8 @@ import org.skypro.skyshop.product.DiscountProduct;
 import org.skypro.skyshop.product.FixPriceProduct;
 import org.skypro.skyshop.product.Product;
 import org.skypro.skyshop.product.SimpleProduct;
+import org.skypro.skyshop.search.BestResultNotFound;
 import org.skypro.skyshop.search.SearchEngine;
-import org.skypro.skyshop.search.Searchable;
 
 import java.util.Arrays;
 import java.util.Scanner;
@@ -67,7 +67,57 @@ public class App {
         productBasket.delimiter();
 
         System.out.println("Проверка SearchEngine");
-        SearchEngine searchEngines = new SearchEngine(15);
+        testSearchEngine();
+
+        System.out.println("Проверка исключений");
+        System.out.println("Первая задача решена, проверьте классы Product, SimpleProduct и DiscountProduct");
+
+        System.out.println("Вторая задача, комментируйте строчки внури метода testSearchEngineException (блок try) для проверки каждого исключения");
+        testSearchEngineException();
+
+        System.out.println("Третья задача, четвертая и пятая");
+        try {
+            testSearchEngineMaxMatchesInSearch();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());;
+        }
+    }
+
+    private static void testSearchEngineMaxMatchesInSearch() throws BestResultNotFound, BestResultNotFound {
+        SearchEngine searchEngineMaxMatchesInSearch = new SearchEngine(15);
+        searchEngineMaxMatchesInSearch.add(new SimpleProduct("МангоМангоМанго", 80));
+        searchEngineMaxMatchesInSearch.add(new SimpleProduct("МангоМангоЯблоки", 90));
+        searchEngineMaxMatchesInSearch.add(new SimpleProduct("МангоЯблокиЯблоки", 100));
+        searchEngineMaxMatchesInSearch.add(new SimpleProduct("ЯблокиЯблокиЯблоки", 110));
+        searchEngineMaxMatchesInSearch.add(new Article("О ПОЛЬЗЕ ГРУШ", "ГрушиГрушиГрушиГрушиГрушиГрушиГрушиГрушиГрушиГрушиГрушиГрушиГрушиГрушиГрушиГрушиГрушиГруши"));
+        System.out.println("Ищем где больше встречается слово Манго");
+        System.out.println(searchEngineMaxMatchesInSearch.searchMaxMatches("Манго"));
+        System.out.println("Ищем где больше встречается слово Яблоки");
+        System.out.println(searchEngineMaxMatchesInSearch.searchMaxMatches("Яблоки"));
+        System.out.println("Ищем где больше встречается слово Груши");
+        System.out.println(searchEngineMaxMatchesInSearch.searchMaxMatches("Груши"));
+        System.out.println("Ищем где больше встречается слово Апельсины");
+        System.out.println(searchEngineMaxMatchesInSearch.searchMaxMatches("Апельсины"));
+
+    }
+
+    private static void testSearchEngineException() {
+        SearchEngine searchEngineExceptions = new SearchEngine(15);
+        //Сначала заполняем продукты c ненорамальными значениями, и проверяем вызовы исключений с ненормальными значениями, по очереди закоменчивая строку
+        try {
+            searchEngineExceptions.add(new SimpleProduct("  ", 85));
+            searchEngineExceptions.add(new DiscountProduct("Груши", 0, 15));
+            searchEngineExceptions.add(new DiscountProduct("Персики", 115, 30));
+            searchEngineExceptions.add(new DiscountProduct("Груши", 100, 102));
+            searchEngineExceptions.add(new FixPriceProduct(null));
+        } catch (IllegalArgumentException e){
+            System.out.println(e.getMessage());
+        }
+    }
+
+    private static void testSearchEngine() {
+
+        SearchEngine searchEngines = new SearchEngine(20);
 
         searchEngines.add(new SimpleProduct("Яблоки", 85));
         searchEngines.add(new DiscountProduct("Груши", 100, 15));
@@ -93,6 +143,6 @@ public class App {
         productBasket.delimiter();
         System.out.println(Arrays.toString(searchEngines.search("Манго")));
         productBasket.delimiter();
-
     }
 }
+
