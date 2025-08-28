@@ -10,15 +10,15 @@ import java.util.*;
 public class ProductBasket {
 
     private final Map<String, List<Product>> productBasket = new TreeMap<>();
-    //создаём списки продуктов
-    private final List <Product> apples = new ArrayList<>();
-    private final List <Product> pears = new ArrayList<>();
-    private final List <Product> peaches = new ArrayList<>();
-    private final List <Product> mangoes = new ArrayList<>();
-    private final List <Product> oranges = new ArrayList<>();
 
 
     public void initBasket() {
+        //создаём списки продуктов
+        List <Product> apples = new ArrayList<>();
+        List <Product> pears = new ArrayList<>();
+        List <Product> peaches = new ArrayList<>();
+        List <Product> mangoes = new ArrayList<>();
+        List <Product> oranges = new ArrayList<>();
         apples.add(new FixPriceProduct("Свежий урожай"));
         apples.add(new DiscountProduct("Антоновка", 85, 15));
         apples.add(new SimpleProduct("Золотой налив", 150));
