@@ -90,11 +90,11 @@ public class App {
         product = new SimpleProduct("Мандарины", 170);
         productBasket.addProductInBasket(product);
         System.out.println("Первая и вторая задача");
-        System.out.println("Список удаленных продуктов " + productBasket.searchAndDeleteProducts("Карабао"));
+        System.out.println("Список удаленных продуктов " + productBasket.removeByName("Карабао"));
         System.out.println("Третья задача");
         productBasket.printBasketContent();
         System.out.println("Четвёртая, пятая задача");
-        System.out.println("Список пуст " + productBasket.searchAndDeleteProducts("Карабао"));
+        System.out.println("Список пуст " + productBasket.removeByName("Карабао"));
         System.out.println("Шестая задача");
         productBasket.printBasketContent();
 

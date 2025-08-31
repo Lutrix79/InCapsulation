@@ -104,19 +104,8 @@ public class ProductBasket {
         }
     }
 
-    public List <Product> searchAndDeleteProducts (String name){
-        List<Product> products = new ArrayList<>();
-        for (List<Product> productDelete: productBasket.values()) {
-            Iterator<Product> iterator = productDelete.iterator();
-            while (iterator.hasNext()) {
-                Product product = iterator.next();
-                if (product != null && product.getNameOfProduct().equals(name)) {
-                    products.add(product);
-                    iterator.remove();
-                }
-            }
-        }
-        return products;
+    public List<Product> removeByName(String name) {
+        return productBasket.remove(name);
     }
 
     public void delimiter() {
