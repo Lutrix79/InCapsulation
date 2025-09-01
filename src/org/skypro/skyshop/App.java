@@ -40,7 +40,7 @@ public class App {
 
         productBasket.delimiter();
         System.out.println("Задача 5");
-        String productName = "Манго";
+        String productName = "Валенсия";
         productBasket.printResultSearch(productBasket.searchProduct(productName));
 
         productBasket.delimiter();
@@ -62,7 +62,7 @@ public class App {
 
         productBasket.delimiter();
         System.out.println("Задача 10");
-        productName = "Манго";
+        productName = "Золотой триумф";
         productBasket.printResultSearch(productBasket.searchProduct(productName));
         productBasket.delimiter();
 
@@ -90,11 +90,11 @@ public class App {
         product = new SimpleProduct("Мандарины", 170);
         productBasket.addProductInBasket(product);
         System.out.println("Первая и вторая задача");
-        System.out.println("Список удаленных продуктов " + productBasket.searchAndDeleteProducts("Мандарины"));
+        System.out.println("Список удаленных продуктов " + productBasket.removeByName("Карабао"));
         System.out.println("Третья задача");
         productBasket.printBasketContent();
         System.out.println("Четвёртая, пятая задача");
-        System.out.println("Список пуст " + productBasket.searchAndDeleteProducts("Мандарины"));
+        System.out.println("Список пуст " + productBasket.removeByName("Карабао"));
         System.out.println("Шестая задача");
         productBasket.printBasketContent();
 
@@ -157,7 +157,7 @@ public class App {
         productBasket.delimiter();
         System.out.println(searchEngines.search("ПОЛЬЗЕ"));
         productBasket.delimiter();
-        System.out.println(searchEngines.search("adfgaehjjrsyj"));
+        System.out.println(searchEngines.search("Такого текста нет"));
         productBasket.delimiter();
         System.out.println(searchEngines.search("Манго"));
         productBasket.delimiter();
