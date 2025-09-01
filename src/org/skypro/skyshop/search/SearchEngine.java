@@ -1,18 +1,21 @@
 package org.skypro.skyshop.search;
 
 import java.util.Map;
+import java.util.Set;
 import java.util.TreeMap;
+import java.util.TreeSet;
+
 
 public class SearchEngine {
 
-    private final Map<String, Searchable> searchables = new TreeMap<>();
+    private final Set<Searchable> searchables = new TreeSet<>(new SearchableComparator());
 
 
-    public Map<String, Searchable> search(String searchTerm) {
-        Map<String,Searchable> resultOfSearch = new TreeMap<>();
-        for (Searchable searchable : searchables.values()) {
+    public Set<Searchable> search(String searchTerm) {
+        Set<Searchable> resultOfSearch = new TreeSet<>(new SearchableComparator());
+        for (Searchable searchable : searchables) {
             if ((searchable != null) && (searchable.findSearchTerm().contains(searchTerm))) {
-                resultOfSearch.put(searchable.getName(), searchable);
+                resultOfSearch.add(searchable);
                 System.out.println(searchable.getName());
             }
         }
@@ -20,13 +23,13 @@ public class SearchEngine {
     }
 
     public void add(Searchable searchable) {
-        searchables.put(searchable.getName(), searchable);
+        searchables.add(searchable);
     }
 
     public Searchable searchMaxMatches(String search) throws BestResultNotFound {
         Searchable resultOfSearch = null;
         int totalQuantity = 0;
-        for (Searchable searchable : searchables.values()) {
+        for (Searchable searchable : searchables) {
             int index = 0;
             int quantity = 0;
             if (searchable != null) {
