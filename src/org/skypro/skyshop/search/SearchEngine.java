@@ -4,6 +4,9 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 
 public class SearchEngine {
@@ -12,14 +15,9 @@ public class SearchEngine {
 
 
     public Set<Searchable> search(String searchTerm) {
-        Set<Searchable> resultOfSearch = new TreeSet<>(new SearchableComparator());
-        for (Searchable searchable : searchables) {
-            if ((searchable != null) && (searchable.findSearchTerm().contains(searchTerm))) {
-                resultOfSearch.add(searchable);
-                System.out.println(searchable.getName());
-            }
-        }
-        return resultOfSearch;
+        return searchables.stream()
+                .filter(searchable -> searchable.getName().toLowerCase().contains(searchTerm.toLowerCase()))
+                .collect(Collectors.toCollection(() -> new TreeSet<>(new SearchableComparator())));
     }
 
     public void add(Searchable searchable) {
