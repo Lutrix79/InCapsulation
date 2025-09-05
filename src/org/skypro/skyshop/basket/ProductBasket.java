@@ -49,33 +49,32 @@ public class ProductBasket {
     }
 
     public int calculateFullPriceBasket() {
-        int sum = 0;
-        for (Set<Product> products: productBasket.values()) {
-            for (Product product : products) {
-                sum += product.getPriceOfProduct();
-            }
-        }
-        return sum;
+        return productBasket.values().stream()
+                .flatMap(Collection::stream)
+                .mapToInt(Product::getPriceOfProduct)
+                .sum();
+    }
+
+    private long getSpecialCount () {
+        return productBasket.values()
+                .stream()
+                .flatMap(Set::stream)
+                .filter(Product::isSpecial)
+                .count();
     }
 
     public void printBasketContent() {
-        int i = 0;
-        int specialProductsCounter = 0;
-        for (Set<Product> products: productBasket.values()) {
-            for (Product product : products) {
-                i++;
-                System.out.println(product.getNameOfProduct());
-                if (product.isSpecial()) {
-                    specialProductsCounter++;
-                }
-            }
-        }
-        if (i == 0) {
+        System.out.println("Содержимое продуктовой корзины:");
+        productBasket.values()
+                .forEach(i -> {
+                    System.out.println(i.toString());
+                });
+        if (productBasket.isEmpty()) {
             System.out.println("В корзине пусто");
         } else {
             System.out.println("Итого: " + calculateFullPriceBasket());
         }
-        System.out.println("Специальных товаров: " + specialProductsCounter);
+        System.out.println("Специальных товаров: " + getSpecialCount());
     }
 
     public boolean searchProduct(String productName) {
