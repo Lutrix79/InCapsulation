@@ -9,16 +9,16 @@ import java.util.*;
 
 public class ProductBasket {
 
-    private final Map<String, List<Product>> productBasket = new TreeMap<>();
+    private final Map<String, Set<Product>> productBasket = new TreeMap<>();
 
 
     public void initBasket() {
         //создаём списки продуктов
-        List <Product> apples = new ArrayList<>();
-        List <Product> pears = new ArrayList<>();
-        List <Product> peaches = new ArrayList<>();
-        List <Product> mangoes = new ArrayList<>();
-        List <Product> oranges = new ArrayList<>();
+        Set <Product> apples = new HashSet<>();
+        Set <Product> pears = new HashSet<>();
+        Set <Product> peaches = new HashSet<>();
+        Set <Product> mangoes = new HashSet<>();
+        Set <Product> oranges = new HashSet<>();
         apples.add(new FixPriceProduct("Свежий урожай"));
         apples.add(new DiscountProduct("Антоновка", 85, 15));
         apples.add(new SimpleProduct("Золотой налив", 150));
@@ -45,12 +45,12 @@ public class ProductBasket {
         if (product == null){
             throw new  IllegalArgumentException ("Продукт не может быть нулевым");
         }
-        productBasket.computeIfAbsent(product.getNameOfProduct(), k -> new ArrayList<>()).add(product);
+        productBasket.computeIfAbsent(product.getNameOfProduct(), k -> new HashSet<>()).add(product);
     }
 
     public int calculateFullPriceBasket() {
         int sum = 0;
-        for (List<Product> products: productBasket.values()) {
+        for (Set<Product> products: productBasket.values()) {
             for (Product product : products) {
                 sum += product.getPriceOfProduct();
             }
@@ -61,7 +61,7 @@ public class ProductBasket {
     public void printBasketContent() {
         int i = 0;
         int specialProductsCounter = 0;
-        for (List<Product> products: productBasket.values()) {
+        for (Set<Product> products: productBasket.values()) {
             for (Product product : products) {
                 i++;
                 System.out.println(product.getNameOfProduct());
@@ -80,7 +80,7 @@ public class ProductBasket {
 
     public boolean searchProduct(String productName) {
         boolean productInBasket = false;
-        for (List<Product> products: productBasket.values()) {
+        for (Set<Product> products: productBasket.values()) {
             for (Product product : products) {
                 if (product != null && product.getNameOfProduct().equals(productName)) {
                     productInBasket = true;
@@ -104,7 +104,7 @@ public class ProductBasket {
         }
     }
 
-    public List<Product> removeByName(String name) {
+    public Set <Product> removeByName (String name){
         return productBasket.remove(name);
     }
 

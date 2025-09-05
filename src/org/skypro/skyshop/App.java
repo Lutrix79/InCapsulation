@@ -136,8 +136,9 @@ public class App {
     private static void testSearchEngine() {
 
         SearchEngine searchEngines = new SearchEngine();
-
         searchEngines.add(new SimpleProduct("Яблоки", 85));
+        searchEngines.add(new DiscountProduct("Яблоки в сахаре", 200, 30));
+        searchEngines.add(new FixPriceProduct("Яблок"));
         searchEngines.add(new DiscountProduct("Груши", 100, 15));
         searchEngines.add(new DiscountProduct("Персики", 115, 30));
         searchEngines.add(new FixPriceProduct("Манго"));
@@ -151,10 +152,12 @@ public class App {
         searchEngines.add(new Article("О ПОЛЬЗЕ ПЕРСИКОВ", "Для сердечно-сосудистой системы. Антиоксиданты и минеральные вещества нормализуют кровяное давление, восстанавливают тонус стенок сосудов."));
         searchEngines.add(new Article("О ПОЛЬЗЕ МАНГО", "Повышение иммунитета. Высокое содержание витамина С усиливает эффективность лейкоцитов — белых клеток крови, которые повышают защитную функцию организма."));
 
+        System.out.println("Проверяем сортировку поискового движка продуктов с TreeSet:");
         System.out.println(searchEngines.search("Яблок"));
         productBasket.delimiter();
         System.out.println(searchEngines.search("Ньютон"));
         productBasket.delimiter();
+        System.out.println("Проверяем сортировку поискового движка статей с TreeSet:");
         System.out.println(searchEngines.search("ПОЛЬЗЕ"));
         productBasket.delimiter();
         System.out.println(searchEngines.search("Такого текста нет"));
